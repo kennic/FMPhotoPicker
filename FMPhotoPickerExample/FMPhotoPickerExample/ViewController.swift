@@ -10,12 +10,13 @@ import UIKit
 import FMPhotoPicker
 
 class ViewController: UIViewController, FMPhotoPickerViewControllerDelegate, FMImageEditorViewControllerDelegate {
-    func fmImageEditorViewController(_ editor: FMImageEditorViewController, didFinishEdittingPhotoWith photo: UIImage) {
+    
+	func fmImageEditorViewController(_ editor: FMImageEditorViewController, didFinishEdittingPhoto photo: UIImage) {
         self.dismiss(animated: true, completion: nil)
         previewImageView.image = photo
     }
     
-    func fmPhotoPickerController(_ picker: FMPhotoPickerViewController, didFinishPickingPhotoWith photos: [UIImage]) {
+    func fmPhotoPickerController(_ picker: FMPhotoPickerViewController, didFinishPickingAssets assets: [FMPhotoAsset]) {
         self.dismiss(animated: true, completion: nil)
     }
     

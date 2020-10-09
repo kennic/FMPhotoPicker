@@ -10,7 +10,6 @@ import UIKit
 import Photos
 
 class FMPhotoPickerImageCollectionViewCell: UICollectionViewCell {
-    static let scale: CGFloat = 3
     static let reuseId = String(describing: FMPhotoPickerImageCollectionViewCell.self)
     
     

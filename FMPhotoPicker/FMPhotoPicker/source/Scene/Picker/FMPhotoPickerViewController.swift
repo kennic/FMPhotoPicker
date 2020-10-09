@@ -11,7 +11,7 @@ import Photos
 
 // MARK: - Delegate protocol
 public protocol FMPhotoPickerViewControllerDelegate: class {
-    func fmPhotoPickerController(_ picker: FMPhotoPickerViewController, didFinishPickingPhotoWith photos: [UIImage])
+    func fmPhotoPickerController(_ picker: FMPhotoPickerViewController, didFinishPickingAssets assets: [FMPhotoAsset])
 }
 
 public class FMPhotoPickerViewController: UIViewController {
@@ -102,6 +102,8 @@ public class FMPhotoPickerViewController: UIViewController {
         if Helper.canAccessPhotoLib() {
             self.fetchPhotos()
         } else {
+			Helper.requestAuthorizationForPhotoAccess(authorized: self.fetchPhotos, rejected: Helper.openIphoneSetting)
+			/*
             let okAction = UIAlertAction(
                 title: config.strings["permission_button_ok"],
                 style: .default) { (_) in
@@ -120,6 +122,7 @@ public class FMPhotoPickerViewController: UIViewController {
                 title: config.strings["permission_dialog_title"],
                 message: config.strings["permission_dialog_message"]
                 )
+			*/
         }
     }
     
@@ -155,7 +158,13 @@ public class FMPhotoPickerViewController: UIViewController {
     
     private func processDetermination() {
         FMLoadingView.shared.show()
-        
+		
+		let selectedAssets = dataSource.getSelectedPhotos()
+		self.delegate?.fmPhotoPickerController(self, didFinishPickingAssets: selectedAssets)
+		
+		/*
+		guard let _ = self.delegate?.fmPhotoPickerController(self, didFinishPickingAssets: []) else { return }
+		
         var dict = [Int:UIImage]()
         
         DispatchQueue.global(qos: .userInitiated).async {
@@ -173,9 +182,10 @@ public class FMPhotoPickerViewController: UIViewController {
             let result = dict.sorted(by: { $0.key < $1.key }).map { $0.value }
             DispatchQueue.main.async {
                 FMLoadingView.shared.hide()
-                self.delegate?.fmPhotoPickerController(self, didFinishPickingPhotoWith: result)
+                self.delegate?.fmPhotoPickerController(self, didFinishPickingPhotos: result)
             }
         }
+		*/
     }
 }
 

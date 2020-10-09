@@ -12,7 +12,7 @@ let kContentFrameSpacing: CGFloat = 22.0
 
 // MARK: - Delegate protocol
 public protocol FMImageEditorViewControllerDelegate: class {
-    func fmImageEditorViewController(_ editor: FMImageEditorViewController, didFinishEdittingPhotoWith photo: UIImage)
+    func fmImageEditorViewController(_ editor: FMImageEditorViewController, didFinishEdittingPhoto photo: UIImage)
 }
 
 public class FMImageEditorViewController: UIViewController {
@@ -311,7 +311,7 @@ public class FMImageEditorViewController: UIViewController {
                 // In case that FMImageEditorViewController is used as standard-alone tool
                 self.fmPhotoAsset.requestFullSizePhoto(cropState: .edited, filterState: .edited) { image in
                     if let image = image {
-                        delegate.fmImageEditorViewController(self, didFinishEdittingPhotoWith: image)
+                        delegate.fmImageEditorViewController(self, didFinishEdittingPhoto: image)
                     }
                 }
             } else {
